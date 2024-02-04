@@ -1,11 +1,10 @@
 package com.example.demo.controller;
 
-
 import com.example.demo.model.Book;
 import com.example.demo.service.BookService;
 import org.springframework.web.bind.annotation.*;
 
-        import java.util.List;
+import java.util.List;
 
 @RestController
 public class BookController {
@@ -30,10 +29,20 @@ public class BookController {
         return bookService.create(book);
     }
 
+    @PostMapping("/addCategory/{category}")
+    public Book addCategory(@RequestBody Book book, @PathVariable String category) {
+        return bookService.addCategory(book, category);
+    }
+
+    @GetMapping("/getByCategory/{category}")
+    public List<Book> getBooksByCategory(@PathVariable String category) {
+        return bookService.getBooksByCategory(category);
+    }
+
     @DeleteMapping("/deleteBook/{bookId}")
     public String deleteBook(@PathVariable String bookId) {
         bookService.delete(bookId);
-        return "Employee Deleted";
+        return "Book Deleted";
     }
 
     @PutMapping("/updateBook/{bookId}")
@@ -44,6 +53,6 @@ public class BookController {
     @DeleteMapping("/deleteAll")
     public String deleteBooks() {
         bookService.deleteAll();
-        return "All Emplyees data deleted";
+        return "All Books data deleted";
     }
 }

@@ -15,15 +15,20 @@ public class Book {
     private String author;
     @Column
     private String publisher;
+    @Column
+    private String category;
     public Book()
     {
 
     }
-    public Book(String string, String string2, String string3) {
-        id=string;
-        author=string2;
-        publisher=string3;
+    public Book(String id, String author, String publisher, String category) {
+        this.id = id;
+        this.author = author;
+        this.publisher = publisher;
+        this.category = category;
     }
+
+    
 
     public String getId() {
         return id;
@@ -47,5 +52,13 @@ public class Book {
 
     public void setPublisher(String publisher) {
         this.publisher = publisher;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

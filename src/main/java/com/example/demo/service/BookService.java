@@ -1,6 +1,5 @@
 package com.example.demo.service;
 
-
 import com.example.demo.model.Book;
 import com.example.demo.repository.BookRepository;
 import org.springframework.stereotype.Service;
@@ -24,7 +23,6 @@ public class BookService {
         return bookRepository.findById(bookID).orElse(null);
     }
 
-
     public Book create(Book book) {
         return bookRepository.save(book);
     }
@@ -33,12 +31,31 @@ public class BookService {
         bookRepository.deleteById(bookId);
     }
 
+  
+    
     public Book update(Book book, String bookId) {
-        Book book1 = bookRepository.findById(bookId).get();
-        book1.setAuthor(book.getAuthor());
-        book1.setPublisher(book.getPublisher());
-        bookRepository.save(book1);
-        return book1;
+        Book existingBook = bookRepository.findById(bookId).orElse(null);
+
+        if (existingBook != null) {
+            existingBook.setAuthor(book.getAuthor());
+            existingBook.setPublisher(book.getPublisher());
+            existingBook.setCategory(book.getCategory());  
+            bookRepository.save(existingBook);
+            return existingBook;
+        } else {
+           
+            return null;
+        }
+    }
+
+
+    public Book addCategory(Book book, String category) {
+        book.setCategory(category);
+        return bookRepository.save(book);
+    }
+
+    public List<Book> getBooksByCategory(String category) {
+        return bookRepository.findByCategory(category);
     }
 
     public void deleteAll() {
